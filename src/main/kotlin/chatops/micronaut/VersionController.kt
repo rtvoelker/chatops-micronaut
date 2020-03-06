@@ -1,19 +1,17 @@
 package chatops.micronaut
 
+import chatops.micronaut.version.endpoint.GasVersionEndpoint
+import chatops.micronaut.version.Version
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
+import io.reactivex.Flowable
 
 @Controller("/version")
-class VersionController {
-
-    @Get(produces = [MediaType.TEXT_PLAIN])
-    fun index(): String {
-        return "Hello World"
-    }
+class VersionController(private val gasVersionEndpoint: GasVersionEndpoint) {
 
     @Get(produces = [MediaType.APPLICATION_JSON])
-    fun getVersions(): List<String> {
-        return listOf("1.2.3");
+    fun getVersions(): Flowable<Version> {
+        return gasVersionEndpoint.fetchVersion();
     }
 }
