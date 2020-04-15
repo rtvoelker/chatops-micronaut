@@ -11,6 +11,12 @@ plugins {
 version "0.1"
 group "chatops.micronaut"
 
+jar {
+    manifest {
+        attributes 'Implementation-Version': '0.1'
+    }
+}
+
 repositories {
     mavenCentral()
     maven { url "https://jcenter.bintray.com" }
